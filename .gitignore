@@ -18,3 +18,4 @@ test-results/
 playwright-report/
 site/
 *:Zone.Identifier
+wr.sh

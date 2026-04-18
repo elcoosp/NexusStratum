@@ -1,0 +1,24 @@
+[package]
+name = "nexus-stratum-gpui"
+description = "GPUI framework adapter for NexusStratum headless primitives"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+authors.workspace = true
+
+[lib]
+name = "stratum_gpui"
+
+[dependencies]
+nexus-stratum-core = { workspace = true }
+nexus-stratum-primitives = { workspace = true }
+gpui = { git = "https://github.com/zed-industries/zed" }
+gpui-rsx = { git = "https://github.com/elcoosp/gpui-rsx" }
+uuid = { workspace = true }
+
+[[example]]
+name = "counter"
+path = "examples/counter.rs"

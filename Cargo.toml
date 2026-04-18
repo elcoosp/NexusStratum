@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "crates/stratum-gpui",
     "crates/stratum-core",
     "crates/stratum-a11y",
     "crates/stratum-primitives",
@@ -32,6 +33,7 @@ homepage = "https://stratum-ui.com"
 authors = ["Andrew Jewell Sr. <devops@automatanexus.com>"]
 
 [workspace.dependencies]
+uuid = { version = "1", features = ["v4"] }
 # Internal crates — keys use nexus- prefix to match crates.io package names.
 # Each crate sets [lib] name = "stratum_*" so Rust imports stay unchanged.
 nexus-stratum-core = { path = "crates/stratum-core", version = "0.1.0" }
