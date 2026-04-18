@@ -11,7 +11,7 @@ impl Render for AppModel {
     fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
         rsx! {
             <div class="flex flex-col gap-4 p-4">
-                <div class="text-2xl" font_weight={FontWeight::BOLD}>
+                <div class="text-2xl text-white" font_weight={FontWeight::BOLD}>
                     {format!("Count: {}", self.count)}
                 </div>
 
