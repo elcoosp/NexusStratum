@@ -1,6 +1,7 @@
-use gpui::{prelude::*, *};
+use gpui::*;
 use gpui_platform::application;
 use gpui_rsx::rsx;
+use stratum_gpui::Checkbox;
 
 struct AppModel {
     count: i32,
@@ -9,9 +10,11 @@ struct AppModel {
 
 impl Render for AppModel {
     fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
+        let view = cx.weak_entity();
+
         rsx! {
-            <div class="flex flex-col gap-4 p-4">
-                <div class="text-2xl text-white" font_weight={FontWeight::BOLD}>
+            <div class="flex flex-col gap-4 p-4 bg-white">
+                <div class="text-2xl" font_weight={FontWeight::BOLD}>
                     {format!("Count: {}", self.count)}
                 </div>
 
@@ -35,17 +38,26 @@ impl Render for AppModel {
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <div
-                        id="notify-checkbox"
-                        class="h-20 w-20 border rounded-md cursor-pointer flex items-center justify-center"
-                        when={(self.enable_notifications, |el| el.bg(rgb(0x3b82f6)).border_color(rgb(0x3b82f6)))}
-                        when={(!self.enable_notifications, |el| el.border_color(rgb(0x9ca3af)))}
-                        on_click={cx.listener(|this: &mut AppModel, _event, _window, _cx| {
-                            this.enable_notifications = !this.enable_notifications;
-                        })}
-                    >
-                        {if self.enable_notifications { "✓" } else { "" }}
-                    </div>
+                    {Checkbox::render(
+                        self.enable_notifications,
+                        {
+                            let view = view.clone();
+                            move |_window, cx| {
+                                let view = view.clone();
+                                // Defer the update to avoid re-entrant panic
+                                cx.defer(move |cx| {
+                                    if let Some(view) = view.upgrade() {
+                                        view.update(cx, |model: &mut AppModel, cx| {
+                                            model.enable_notifications = !model.enable_notifications;
+                                            cx.notify();
+                                            println!("Model updated: {}", model.enable_notifications);
+                                        });
+                                    }
+                                });
+                            }
+                        },
+                        cx,
+                    )}
                     <span>{"Enable notifications"}</span>
                 </div>
             </div>

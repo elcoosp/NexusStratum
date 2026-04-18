@@ -1,10 +1,11 @@
 [workspace]
 resolver = "2"
 members = [
-    "examples/gpui_counter",
+    "examples/gpui-counter",
     "crates/stratum-core",
     "crates/stratum-a11y",
     "crates/stratum-primitives",
+    "crates/stratum-gpui",
     "crates/stratum-theme",
     "crates/stratum-css",
     "crates/stratum-css-macros",

@@ -2944,9 +2944,10 @@ name = "gpui-counter"
 version = "0.1.0"
 dependencies = [
  "gpui",
- "gpui-rsx",
+ "gpui-rsx 0.3.2",
  "gpui_platform",
  "nexus-stratum-core",
+ "nexus-stratum-gpui",
  "nexus-stratum-primitives",
  "uuid",
 ]
@@ -2954,6 +2955,16 @@ dependencies = [
 [[package]]
 name = "gpui-rsx"
 version = "0.3.2"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "gpui-rsx"
+version = "0.3.2"
+source = "git+https://github.com/elcoosp/gpui-rsx#8e1c95203e377fe8a730652acf9aed4c72f66882"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4535,6 +4546,17 @@ dependencies = [
  "nexus-stratum-core",
  "nexus-stratum-sdk",
  "serde_json",
+]
+
+[[package]]
+name = "nexus-stratum-gpui"
+version = "0.1.0"
+dependencies = [
+ "gpui",
+ "gpui-rsx 0.3.2 (git+https://github.com/elcoosp/gpui-rsx)",
+ "nexus-stratum-core",
+ "nexus-stratum-primitives",
+ "uuid",
 ]
 
 [[package]]
